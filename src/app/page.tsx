@@ -3,7 +3,6 @@ import { TiUserAdd } from "react-icons/ti";
 import Card from "./components/Card";
 import Modal from "./components/Modal";
 
-
 export default function Home() {
   return (
     <div className="max-w-7xl border border-red-500 mx-auto p-6 ">
@@ -17,15 +16,17 @@ export default function Home() {
           <p className="text-lg">New Contact</p>
         </button> */}
 
-<Modal triggerBtn={
-  <div className="bg-primary px-3 py-1 rounded-xl text-#F9F9F9 flex items-center gap-1 text-secondary">
-    <TiUserAdd size={"18px"}/>
-    <p className="text-lg">New Contact</p>
-  </div>
-}  />
+        <Modal
+          triggerBtn={
+            <div className="bg-primary px-3 py-1 rounded-xl text-#F9F9F9 flex items-center gap-1 text-secondary">
+              <TiUserAdd size={"18px"} />
+              <p className="text-lg">New Contact</p>
+            </div>
+          }
+        />
       </div>
 
-      <Card/>
+      <Card />
     </div>
   );
 }
