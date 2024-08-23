@@ -27,12 +27,14 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
   const handleEdit = () => {
     setDetails(particularCard)
     setOpen(true)
+    setIsDropDownOpen(false)
 
   };
 
   const handleDelete = () => {
     console.log('delete clicked');
     deleteid(id!)
+    setIsDropDownOpen(false)
 
   };
 

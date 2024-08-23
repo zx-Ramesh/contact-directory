@@ -130,12 +130,12 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
                     <div className="flex gap-5">
                       <div className="flex flex-col flex-1">
                         <label htmlFor="email" className="font-bold">Email</label>
-                        <Input name="email" id="email" placeholder="Email address" />
+                        <Input type="text" name="email" id="email" placeholder="Email address" />
                         
                       </div>
                       <div className="flex flex-col flex-1">
                         <label htmlFor="number" className="font-bold">Phone Number</label>
-                        <Input name="phoneNumber" id="number" placeholder="(123) 456 - 7890" />
+                        <Input type="number" name="phoneNumber" id="number" placeholder="(123) 456 - 7890" />
                         
                       </div>
                     </div>

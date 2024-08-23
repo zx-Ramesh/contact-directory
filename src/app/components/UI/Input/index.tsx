@@ -135,7 +135,7 @@ const Input = <T,>({
           name={name}
           render={(message) => {
             return (
-              <div className="absolute mt-1 w-0 min-w-full text-xs text-error">
+              <div className="absolute mt-1 w-0 min-w-full text-xs text-errorColor">
                 {message}
               </div>
             );

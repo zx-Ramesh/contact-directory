@@ -13,6 +13,7 @@ module.exports = {
         secondary: "#F9F9F9",
         cardColor: "#F9F9F9",
         iconsPos: "#6418C3",
+        errorColor: "#EF0107",
         ...mauve,
         ...violet,
         ...green,
