@@ -25,14 +25,13 @@ const MainContainer = () => {
           setDetails={setDetails}
           setOpen={setopen}
             triggerBtn={
-              <div className="bg-primary px-3 py-1 rounded-xl text-#F9F9F9 flex items-center gap-1 text-secondary">
+              <div className="bg-primary px-3 py-1 rounded-xl text-#F9F9F9 flex items-center gap-1 text-secondary cursor-pointer">
                 <TiUserAdd size={"18px"} />
                 <p className="text-lg">New Contact</p>
               </div>
             }
           />
         </div>
-        {/* <CardIndividual id={0} name={""} email={""} phone={""} company={""} title={""}  /> */}
         <Cards  open={open}
           setOpen={setopen} setDetails={setDetails}/>
       </div>

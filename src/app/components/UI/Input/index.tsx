@@ -61,7 +61,7 @@ const Input = <T,>({
         {label && <label htmlFor={name}>{label}</label>}
         <div
           className={classNames(
-            "bg-light-bg-3  flex items-center gap-4 overflow-hidden rounded-md border",
+            "bg-light-bg-3  flex items-center gap-4 overflow-hidden rounded-3xl border",
             "focus-within:border-primary disabled:cursor-not-allowed border-background-4 focus-within:shadow focus-within:shadow-primary-100",
             props?.disabled
               ? ""

@@ -2,9 +2,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import { Form, Formik, FormikHelpers } from "formik";
+import { ErrorMessage, Form, Formik, FormikHelpers } from "formik";
 import Input from "./UI/Input";
 import { useAddCardsMutation, useEditCardsMutation, useGetCardsQuery } from "@/redux/contactSlice";
+import * as Yup from "yup";
 
 
 interface ModalProps {
@@ -32,6 +33,16 @@ const initialValues: initialValueType = {
   phoneNumber: "",
   email: "",
 };
+
+const validationSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  phoneNumber: Yup.string().required("Phone Number is required"),
+  company: Yup.string().required("Company is required"),
+  designation: Yup.string().required("Designation is required"),
+});
+
+
 const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) => {
 
   const [addDataCard] = useAddCardsMutation()
@@ -42,8 +53,7 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
   const handelAddNewCartSubmit = async (values: initialValueType, { resetForm }: FormikHelpers<initialValueType>) => {
     try {
       if (!details) {
-        console.log("i am under the wATER");
-
+        console.log("New Contact Form");
         const response = await addDataCard({
           name: values?.name,
           company: values?.company,
@@ -77,51 +87,68 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={() => { setOpen(!open) }}
-    >
+    <Dialog.Root open={open} onOpenChange={() => { setOpen(!open) }}>
       <Dialog.Trigger asChild >
         {triggerBtn}
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-blackA6 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content onPointerDownOutside={(e) => e.preventDefault()} className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] h-[auto] w-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-9 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-          <Dialog.Title className="text-mauve12 m-0 text-[17px] font-medium flex ">
+        <Dialog.Content onPointerDownOutside={(e) => e.preventDefault()} className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] h-[auto] w-[50%] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-16 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+         {
+          details?.name.length? <>
+           <Dialog.Title className="text-mauve12 m-0 text-[30px] flex justify-center font-bold">
+           Edit Contact
+          </Dialog.Title>
+          <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal flex justify-center">
+            Fill out the below form
+          </Dialog.Description>
+          
+          </>:
+          <>
+             <Dialog.Title className="text-mauve12 m-0 text-[30px] flex justify-center font-bold">
             Add New Contact
           </Dialog.Title>
-          <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal">
+          <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal flex justify-center">
             Fill out the below form to add new member
           </Dialog.Description>
+          </>
+         }
           <Formik<initialValueType>
             initialValues={details || initialValues}
+            validationSchema={validationSchema} 
             onSubmit={handelAddNewCartSubmit}
           >
-            {({ values }) => {
-              return (
+            {/* {({ values }) => {
+              return ( */}
                 <Form>
-                  <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-5 mb-7">
                     <div>
-                      <label htmlFor="name">Name</label>
-                      <Input name="name" id="name" placeholder="alasson bush" className="!rounded-3xl    " />
+                      <label htmlFor="name" className="font-bold">Name</label>
+                      <Input name="name" id="name" placeholder="Angela Moss" />
+                      
                     </div>
                     <div className="flex gap-5">
                       <div className="flex flex-col flex-1">
-                        <label htmlFor="email">Email</label>
-                        <Input name="email" id="email" />
+                        <label htmlFor="email" className="font-bold">Email</label>
+                        <Input name="email" id="email" placeholder="Email address" />
+                        
                       </div>
                       <div className="flex flex-col flex-1">
-                        <label htmlFor="number">Phone Number</label>
-                        <Input name="phoneNumber" id="number" />
+                        <label htmlFor="number" className="font-bold">Phone Number</label>
+                        <Input name="phoneNumber" id="number" placeholder="(123) 456 - 7890" />
+                        
                       </div>
                     </div>
                     <div className="flex gap-5">
                       <div className="flex flex-col flex-1">
-                        <label htmlFor="company">Company</label>
-                        <Input name="company" id="company" />
+                        <label htmlFor="company" className="font-bold">Company</label>
+                        <Input name="company" id="company" placeholder="Company name" />
+                        
                       </div>
                       <div className="flex flex-col flex-1">
-                        <label htmlFor="designation">Designation</label>
-
-                        <Input name="designation" id="designation" />
+                        <label htmlFor="designation" className="font-bold">Designation</label>
+                        <Input name="designation" id="designation" placeholder="Marketing Manager" />
+                        
                       </div>
                     </div>
                   </div>
@@ -141,8 +168,8 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
 
                   </div>
                 </Form>
-              );
-            }}
+              {/* );
+            }} */}
           </Formik>
         </Dialog.Content>
       </Dialog.Portal>
