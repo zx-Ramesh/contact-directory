@@ -36,6 +36,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body: Card = await request.json();
+console.log("body",body);
 
     const card = await prisma.card.create({ data: body });
 

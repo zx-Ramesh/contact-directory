@@ -1,7 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { cardsApi } from './contactSlice'
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [cardsApi.reducerPath]: cardsApi.reducer,
+    
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(cardsApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
