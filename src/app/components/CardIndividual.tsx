@@ -25,7 +25,7 @@ const particularCard:initialValueType = {
 }
   const handleEdit = () => {
     setDetails(particularCard)
-setOpen(true)
+    setOpen(true)
     
   };
 

@@ -13,7 +13,7 @@ const MainContainer = () => {
   
   
     return (
-      <div className="max-w-7xl border border-red-500 mx-auto p-6 ">
+      <div className="max-w-7xl mx-auto p-6 ">
         <div className="flex justify-between">
           <div>
             <h1 className="font-bold">Contacts</h1>
