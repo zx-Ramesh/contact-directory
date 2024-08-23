@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Form, Formik, FormikHelpers } from "formik";
@@ -9,15 +9,20 @@ import { useAddCardsMutation, useGetCardsQuery } from "@/redux/contactSlice";
 
 interface ModalProps {
   triggerBtn: React.ReactNode;
+  open:boolean;
+  setOpen:Dispatch<SetStateAction<boolean>>
+  details:initialValueType
+  setDetails:React.Dispatch<React.SetStateAction<initialValueType | undefined>>
 }
 
 export interface initialValueType {
-  // id?: string,
+  id?: number,
   name: string;
   email: string;
   phoneNumber: string;
   company: string;
   designation: string;
+
 }
 
 const initialValues: initialValueType = {
@@ -27,8 +32,8 @@ const initialValues: initialValueType = {
   phoneNumber: "",
   email: "",
 };
-const Modal = ({ triggerBtn }: ModalProps) => {
-  const [open,setopen] = useState(false)
+const Modal = ({ triggerBtn,open,setOpen ,details,setDetails}: ModalProps) => {
+
   const [addDataCard] = useAddCardsMutation()
   const {data,isLoading,isError,error} = useGetCardsQuery();
 
@@ -44,7 +49,8 @@ const Modal = ({ triggerBtn }: ModalProps) => {
       console.log("response", response)
       ;
 
-      setopen(false)
+      setOpen(false)
+      resetForm()
 
     } catch (error) {
       console.error("Request failed:", error);
@@ -53,8 +59,8 @@ const Modal = ({ triggerBtn }: ModalProps) => {
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={()=>{setopen(!open)}}>
-      <Dialog.Trigger asChild>
+    <Dialog.Root open={open} onOpenChange={()=>{setOpen(!open)}} >
+      <Dialog.Trigger asChild >
         {triggerBtn}
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -67,7 +73,7 @@ const Modal = ({ triggerBtn }: ModalProps) => {
             Fill out the below form to add new member
           </Dialog.Description>
           <Formik<initialValueType>
-            initialValues={initialValues}
+            initialValues={ details || initialValues}
             onSubmit={handelAddNewCartSubmit}
           >
             {({ values }) => {
@@ -108,7 +114,7 @@ const Modal = ({ triggerBtn }: ModalProps) => {
 
          
                     <Dialog.Close asChild>
-                      <button className="border border-iconsPos px-8 py-3 rounded-lg">
+                      <button onClick={()=>{setDetails(initialValues)}} className="border border-iconsPos px-8 py-3 rounded-lg">
                         Cancel
                       </button>
                     </Dialog.Close>

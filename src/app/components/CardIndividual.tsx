@@ -1,22 +1,32 @@
 import { Card } from "@prisma/client";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { IoIosCall } from "react-icons/io";
 import { IoIosMail } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDeletePostMutation } from "@/redux/contactSlice";
+import { initialValueType } from "./Modal";
 
-const CardIndividual: React.FC<Card> = ({ id, name, phone, title, email, company }) => {
+interface CardIndividualProps extends Card  {
+  open:boolean;
+  setOpen:Dispatch<SetStateAction<boolean>>
+  setDetails:React.Dispatch<React.SetStateAction<initialValueType | undefined>>
+}
+
+const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title, email, company,open,setOpen,setDetails }) => {
+
   const [isDropdownOpen, setIsDropDownOpen] = useState(false);
   let [deleteid]=useDeletePostMutation()
 
   const toggleDropFunc = () => {
     setIsDropDownOpen(!isDropdownOpen);
   };
-
+const particularCard:initialValueType = {
+   id, name,phoneNumber:phone,designation:title, email, company
+}
   const handleEdit = () => {
-    console.log('edit clicked');
-
-
+    setDetails(particularCard)
+setOpen(true)
+    
   };
 
   const handleDelete = () => {
@@ -57,7 +67,7 @@ const CardIndividual: React.FC<Card> = ({ id, name, phone, title, email, company
         <p className="text-sm text-iconsPos">{company}</p>
       </div>
 
-      <div className="flex justify-start border mt-3">
+      <div className="flex justify-start mt-3">
         <IoIosCall className="text-iconsPos" />
         <span className="text-sm pl-3 font-semibold">+91 {phone}</span>
       </div>

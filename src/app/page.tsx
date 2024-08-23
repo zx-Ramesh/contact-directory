@@ -1,36 +1,5 @@
-"use client"
-
-// import Image from "next/image";
-import { TiUserAdd } from "react-icons/ti";
-import CardIndividual from "./components/CardIndividual";
-import Modal from "./components/Modal";
-import { useGetCardsQuery } from "@/redux/contactSlice";
-import Cards from "./components/UI/Cards";
+import MainContainer from "./components/MainContainer";
 
 export default function Home() {
-  const {data} = useGetCardsQuery()
-
-  console.log("DATA", data)
-
-
-  return (
-    <div className="max-w-7xl border border-red-500 mx-auto p-6 ">
-      <div className="flex justify-between">
-        <div>
-          <h1 className="font-bold">Contacts</h1>
-          <p className="text-lg">Lorem ipsum dolor sit amet</p>
-        </div>
-        <Modal
-          triggerBtn={
-            <div className="bg-primary px-3 py-1 rounded-xl text-#F9F9F9 flex items-center gap-1 text-secondary">
-              <TiUserAdd size={"18px"} />
-              <p className="text-lg">New Contact</p>
-            </div>
-          }
-        />
-      </div>
-      {/* <CardIndividual id={0} name={""} email={""} phone={""} company={""} title={""}  /> */}
-      <Cards/>
-    </div>
-  );
+return(<MainContainer/>)
 }
