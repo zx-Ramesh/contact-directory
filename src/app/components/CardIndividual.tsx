@@ -1,11 +1,13 @@
 import { Card } from "@prisma/client";
-import React, { Dispatch, SetStateAction, useCallback, useMemo, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { IoIosCall } from "react-icons/io";
 import { IoIosMail } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDeletePostMutation } from "@/redux/contactSlice";
 import { initialValueType } from "./Modal";
 import classNames from "classnames";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
 
 interface CardIndividualProps extends Card {
   open: boolean;
@@ -16,29 +18,42 @@ interface CardIndividualProps extends Card {
 const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title, email, company, open, setOpen, setDetails }) => {
 
   const [isDropdownOpen, setIsDropDownOpen] = useState(false);
-  let [deleteid] = useDeletePostMutation()
+  const dropdownRef = useRef<HTMLUListElement | null>(null);
+  let [deleteid] = useDeletePostMutation();
 
   const toggleDropFunc = () => {
-    setIsDropDownOpen(!isDropdownOpen);
+    setIsDropDownOpen(prev => !prev);
   };
+
   const particularCard: initialValueType = {
     id, name, phoneNumber: phone, designation: title, email, company
   }
-  const handleEdit = () => {
-    setDetails(particularCard)
-    setOpen(true)
-    setIsDropDownOpen(false)
 
+  const handleEdit = () => {
+    setDetails(particularCard);
+    setOpen(true);
+    setIsDropDownOpen(false);
   };
 
   const handleDelete = () => {
     console.log('delete clicked');
-    deleteid(id!)
-    setIsDropDownOpen(false)
-
+    deleteid(id!);
+    setIsDropDownOpen(false);
   };
 
+  // Click outside handler
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setIsDropDownOpen(false);
+    }
+  }, []);
 
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   const hexCode = useMemo(() => {
     function randomColor() {
@@ -51,29 +66,30 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
     }
     return randomColor();
   }, [id]);
-  
 
   return (
-    <div className={classNames("h-70 w-60 shadow-lg rounded-lg p-4  flex flex-col justify-center relative overflow-hidden")}>
+    <div className={classNames("h-70 w-60 shadow-lg rounded-lg p-4  flex flex-col justify-center relative")}>
       <div className="flex flex-col items-center">
-        <div style={{backgroundColor:`${hexCode}`}} className="h-24 w-24 bg-blue-400 flex items-center justify-center rounded-xl">
+        <div style={{ backgroundColor: `${hexCode}` }} className="h-24 w-24 bg-blue-400 flex items-center justify-center rounded-xl">
           <p>HS</p>
         </div>
 
         <div className="absolute right-2 top-2 cursor-pointer">
           <BsThreeDotsVertical onClick={toggleDropFunc} />
           {isDropdownOpen && (
-            <ul className="absolute right-1 mt-1 w-32 bg-white border border-gray-300 rounded shadow-lg">
+            <ul ref={dropdownRef} className="absolute z-30 bg-white left-1 mt-1 w-32 rounded-xl border border-primary text-primary">
               <li
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-2 cursor-pointer flex items-center gap-2"
                 onClick={handleEdit}
               >
+                <CiEdit />
                 Edit
               </li>
               <li
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                className="px-4 py-2  cursor-pointer flex items-center gap-2"
                 onClick={handleDelete}
               >
+                <MdDeleteOutline />
                 Delete
               </li>
             </ul>
