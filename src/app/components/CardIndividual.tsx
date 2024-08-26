@@ -22,8 +22,10 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
   let [deleteid] = useDeletePostMutation();
 
   const toggleDropFunc = () => {
-    setIsDropDownOpen(prev => !prev);
+    setIsDropDownOpen(!isDropdownOpen);
   };
+
+  console.log({isDropdownOpen})
 
   const particularCard: initialValueType = {
     id, name, phoneNumber: phone, designation: title, email, company
@@ -46,7 +48,7 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
       setIsDropDownOpen(false);
     }
-  }, []);
+  }, []);   
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -75,7 +77,7 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
         </div>
 
         <div className="absolute right-3 top-5 cursor-pointer">
-          <BsThreeDotsVertical onClick={toggleDropFunc} />
+          <BsThreeDotsVertical onClick={toggleDropFunc} className="text-primary"/>
           {isDropdownOpen && (
             <ul ref={dropdownRef} className="absolute z-30 bg-white left-1 mt-1 w-32 rounded-xl border border-primary text-primary">
               <li
@@ -104,13 +106,13 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
       </div>
 
       <div className="w-52 flex justify-start mt-3 gap-2">
-        <IoIosCall className="text-iconsPos truncate" />
+        <IoIosCall height={"20px"} className="text-iconsPos truncate" />
         <span className="text-sm pl-3 font-semibold">+91 {phone}</span>
       </div>
 
       <div className="w-52 flex mt-2 items-center gap-2">
-        <IoIosMail className="text-[#6418C3]" />
-        <span className="text-sm pl-3 font-semibol truncate">{email}</span>
+        <IoIosMail height={"20px"} className="text-[#6418C3]" />
+        <span className="text-sm pl-3 font-semibol truncate w-[156px]">{email}</span>
       </div>
     </div>
   );
