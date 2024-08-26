@@ -96,19 +96,21 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
           )}
         </div>
 
-        <h2 className="font-bold text-lg mb-2"> {name}</h2>
-        <p className="text-sm">{title} at</p>
-        <p className="text-sm text-iconsPos">{company}</p>
+        <div className="w-52 truncate flex flex-col text-center mt-2">
+        <h2 className="font-bold text-lg mb-2 truncate"> {name}</h2>
+        <p className="text-sm truncate">{title} at</p>
+        <p className="text-sm text-iconsPos truncate">{company}</p>
+        </div>
       </div>
 
-      <div className="flex justify-start mt-3 gap-2">
-        <IoIosCall className="text-iconsPos" />
+      <div className="w-52 flex justify-start mt-3 gap-2">
+        <IoIosCall className="text-iconsPos truncate" />
         <span className="text-sm pl-3 font-semibold">+91 {phone}</span>
       </div>
 
-      <div className="flex mt-2 items-center gap-2">
+      <div className="w-52 flex mt-2 items-center gap-2">
         <IoIosMail className="text-[#6418C3]" />
-        <span className="text-sm pl-3 font-semibold">{email}</span>
+        <span className="text-sm pl-3 font-semibol truncate">{email}</span>
       </div>
     </div>
   );

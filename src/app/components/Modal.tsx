@@ -52,7 +52,9 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
 
   const handelAddNewCartSubmit = async (values: initialValueType, { resetForm }: FormikHelpers<initialValueType>) => {
     try {
-      if (!details) {
+     
+     
+      if (!details?.id) {
         console.log("New Contact Form");
         const response = await addDataCard({
           name: values?.name,
@@ -65,6 +67,7 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
         setOpen(false)
 
       } else {
+        console.log("Edit form")
         const response = await editDateCard({
           id: details.id,
           name: values?.name,
@@ -155,6 +158,7 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
                   <div className="flex justify-center gap-4">
 
                     <button type="submit" className="bg-iconsPos text-white px-8 py-3 rounded-lg  ">
+                      
                       Save
                     </button>
 
