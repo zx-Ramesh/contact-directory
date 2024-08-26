@@ -37,7 +37,7 @@ const initialValues: initialValueType = {
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  phoneNumber: Yup.string().required("Phone Number is required"),
+  phoneNumber: Yup.string().required("Phone Number is required").matches(/^[0-9]+$/, "Must be only digits").min(10, 'Must be exactly 10 digits').max(10, 'Must be exactly 10 digits'),
   company: Yup.string().required("Company is required"),
   designation: Yup.string().required("Designation is required"),
 });
@@ -135,7 +135,7 @@ const Modal = ({ triggerBtn, open, setOpen, details, setDetails }: ModalProps) =
                       </div>
                       <div className="flex flex-col flex-1">
                         <label htmlFor="number" className="font-bold">Phone Number</label>
-                        <Input type="number" name="phoneNumber" id="number" placeholder="(123) 456 - 7890" />
+                        <Input type="number" name="phoneNumber" id="number" placeholder="(123) 456 - 7890"/>
                         
                       </div>
                     </div>

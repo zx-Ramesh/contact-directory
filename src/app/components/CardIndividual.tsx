@@ -68,13 +68,13 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
   }, [id]);
 
   return (
-    <div className={classNames("h-70 w-60 shadow-lg rounded-lg p-4  flex flex-col justify-center relative")}>
+    <div className="h-70 w-60 shadow-lg rounded-lg py-6 px-5 flex flex-col justify-center relative">
       <div className="flex flex-col items-center">
         <div style={{ backgroundColor: `${hexCode}` }} className="h-24 w-24 bg-blue-400 flex items-center justify-center rounded-xl">
           <p>HS</p>
         </div>
 
-        <div className="absolute right-2 top-2 cursor-pointer">
+        <div className="absolute right-3 top-5 cursor-pointer">
           <BsThreeDotsVertical onClick={toggleDropFunc} />
           {isDropdownOpen && (
             <ul ref={dropdownRef} className="absolute z-30 bg-white left-1 mt-1 w-32 rounded-xl border border-primary text-primary">
@@ -101,12 +101,12 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
         <p className="text-sm text-iconsPos">{company}</p>
       </div>
 
-      <div className="flex justify-start mt-3">
+      <div className="flex justify-start mt-3 gap-2">
         <IoIosCall className="text-iconsPos" />
         <span className="text-sm pl-3 font-semibold">+91 {phone}</span>
       </div>
 
-      <div className="flex mt-2 items-center">
+      <div className="flex mt-2 items-center gap-2">
         <IoIosMail className="text-[#6418C3]" />
         <span className="text-sm pl-3 font-semibold">{email}</span>
       </div>
