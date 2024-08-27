@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Card } from "@prisma/client";
-import { initialValueType } from '@/app/components/Modal';
+import { initialValueType } from '@/app/components/UI/modal/Modal';
 export const cardsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
   tagTypes:["Posts"],

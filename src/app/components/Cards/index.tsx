@@ -1,7 +1,8 @@
 import { useGetCardsQuery } from '@/redux/contactSlice'
 import React, { Dispatch, SetStateAction } from 'react'
+
+import { initialValueType } from '../UI/modal/Modal';
 import CardIndividual from '../CardIndividual';
-import { initialValueType } from '../Modal';
 type cardsProps = {
   open:boolean;
   setOpen:Dispatch<SetStateAction<boolean>>

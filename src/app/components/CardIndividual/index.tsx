@@ -4,10 +4,12 @@ import { IoIosCall } from "react-icons/io";
 import { IoIosMail } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDeletePostMutation } from "@/redux/contactSlice";
-import { initialValueType } from "./Modal";
+
 import classNames from "classnames";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { initialValueType } from "../UI/modal/Modal";
+import { data } from "autoprefixer";
 
 interface CardIndividualProps extends Card {
   open: boolean;
@@ -67,13 +69,20 @@ const CardIndividual: React.FC<CardIndividualProps> = ({ id, name, phone, title,
       return c;
     }
     return randomColor();
-  }, [id]);
+  }, []);
+
+  function getInitals(word: string):string{
+    const result =  word.split(" ").map((initial)=> initial.charAt(0));
+    return result.join("");
+  }
+
+  const initialResultName = getInitals(particularCard?.name)
 
   return (
     <div className="h-70 w-60 shadow-lg rounded-lg py-6 px-5 flex flex-col justify-center relative">
       <div className="flex flex-col items-center">
         <div style={{ backgroundColor: `${hexCode}` }} className="h-24 w-24 bg-blue-400 flex items-center justify-center rounded-xl">
-          <p>HS</p>
+          <p className="text-[#F9F9F9] font-extrabold text-xl">{initialResultName}</p>
         </div>
 
         <div className="absolute right-3 top-5 cursor-pointer">

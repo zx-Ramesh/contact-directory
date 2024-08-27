@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { ErrorMessage, Form, Formik, FormikHelpers } from "formik";
-import Input from "./UI/Input";
+import Input from "../Input";
 import { useAddCardsMutation, useEditCardsMutation, useGetCardsQuery } from "@/redux/contactSlice";
 import * as Yup from "yup";
 

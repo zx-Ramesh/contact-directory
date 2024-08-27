@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react'
-import Modal, { initialValueType } from '../Modal'
+import Modal, { initialValueType } from '../UI/modal/Modal'
 import { TiUserAdd } from 'react-icons/ti'
-import Cards from '../UI/Cards'
+import Cards from '../Cards'
 import { useGetCardsQuery } from '@/redux/contactSlice'
 
 const MainContainer = () => {
